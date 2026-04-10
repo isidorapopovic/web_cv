@@ -1,54 +1,47 @@
-const education = [
+import { GraduationCap, BookOpen, Cpu, Code } from "lucide-react";
+
+const items = [
     {
-        degree: "Master’s Degree in Applied Mathematics",
-        institution: "University of Belgrade School of Electrical Engineering",
-        period: "2024–2025",
-        details:
-            "Focus on statistics, mathematical modelling, and a Master’s thesis on multi-asset portfolio convex optimisation.",
+        icon: GraduationCap,
+        text: "Master’s Degree in Applied Mathematics (2024–2025)",
     },
     {
-        degree: "Bachelor’s Degree in Electrical Engineering and Computing",
-        institution: "University of Belgrade School of Electrical Engineering",
-        period: "2020–2024",
-        details:
-            "Relevant work included signal and systems, orientation towards statistical analysis of signals, machine learning, data science, and 240 ECTS.",
+        icon: BookOpen,
+        text: "Bachelor’s Degree in Electrical Engineering and Computing (2020–2024)",
     },
     {
-        degree: "Regional Center for Talented Youth Belgrade 2",
-        institution: "Belgrade",
-        period: "2013–2020",
-        details:
-            "Competed in biomedical sciences, mathematics, physics, and English, and took part in the Best Young Researchers competition.",
+        icon: Cpu,
+        text: "Focus on statistics, mathematical modelling, and optimisation",
+    },
+    {
+        icon: Code,
+        text: "Machine learning, data science, signal analysis, and 240 ECTS",
     },
 ];
 
 const EducationSection = () => {
     return (
-        <section id="education" className="px-6 py-16">
-            <div className="mx-auto max-w-6xl">
-                <h2 className="mb-4 text-4xl font-bold">Education</h2>
-                <p className="mb-10 max-w-2xl text-foreground/75">
-                    Academic background in electrical engineering, computing, applied
-                    mathematics, and statistics.
-                </p>
+        <section className="px-6 py-24">
+            <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-start">
+                <div>
+                    <h2 className="text-6xl md:text-8xl font-black mb-3">Education</h2>
+                    <p className="text-xl">Academic Background</p>
+                </div>
 
-                <div className="space-y-6">
-                    {education.map((item) => (
-                        <div
-                            key={`${item.degree}-${item.period}`}
-                            className="rounded-3xl border border-foreground/10 p-6 md:p-8"
-                        >
-                            <div className="mb-3 flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-                                <div>
-                                    <h3 className="text-2xl font-semibold">{item.degree}</h3>
-                                    <p className="text-foreground/70">{item.institution}</p>
-                                </div>
-                                <span className="text-sm text-foreground/60">{item.period}</span>
+                <div className="border-t border-foreground/20">
+                    {items.map((item, i) => {
+                        const Icon = item.icon;
+
+                        return (
+                            <div
+                                key={i}
+                                className="flex items-center gap-5 py-8 border-b border-foreground/20"
+                            >
+                                <Icon className="w-8 h-8 shrink-0" />
+                                <p className="text-2xl md:text-3xl font-semibold">{item.text}</p>
                             </div>
-
-                            <p className="leading-8 text-foreground/80">{item.details}</p>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

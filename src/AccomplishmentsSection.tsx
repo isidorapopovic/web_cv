@@ -1,29 +1,25 @@
 const accomplishments = [
     {
         title: "Huawei Developer Competition Europe",
-        subtitle: "Honourable Student Award",
-        period: "2023",
+        subtitle: "2023",
         description:
-            "Received Honourable Student Award as part of a top 7/120+ teams ranking for designing a disease-risk prediction web app on Huawei Cloud.",
+            "Awarded Honourable Student Award as part of a top 7/120+ teams ranking for designing a disease-risk prediction web app on Huawei Cloud.",
     },
     {
         title: "Electrical Engineering Students’ European Association",
-        subtitle: "EESTEC Ambassador",
-        period: "2022–2024",
+        subtitle: "2022–2024",
         description:
-            "Represented the association to corporate partners, drove collaborations and initiatives, worked cross-team internally, shared best practices, and helped scale partnership strategy across the organisation.",
+            "Served as EESTEC Ambassador, represented the association to corporate partners, drove collaborations and initiatives, and helped scale partnership strategy across the organisation.",
     },
     {
-        title: "Top Female Founders, IT Summer School",
-        subtitle: "Participant",
-        period: "2024",
+        title: "Top Female Founders, EIT Summer School",
+        subtitle: "2024",
         description:
-            "Organised by European Institute of Technology with mentoring from industry experts in big pharma, academia, and healthcare. Learned to identify healthcare needs, build a dynamic team, create a business model, and pitch ideas effectively.",
+            "Joined a healthcare-focused entrepreneurship programme with mentoring from experts in big pharma, academia, and healthcare, learning how to identify needs, build teams, develop business models, and pitch ideas.",
     },
     {
         title: "Detecting Parkinson’s Disease Using Voice Signals",
-        subtitle: "Research",
-        period: "2025",
+        subtitle: "2025",
         description:
             "Presented research at the International Conference of Undergraduate Research, University of Warwick.",
     },
@@ -31,30 +27,33 @@ const accomplishments = [
 
 const AccomplishmentsSection = () => {
     return (
-        <section id="accomplishments" className="px-6 py-16">
-            <div className="mx-auto max-w-6xl">
-                <h2 className="mb-4 text-4xl font-bold">Achievements</h2>
-                <p className="mb-10 max-w-2xl text-foreground/75">
-                    Selected awards, leadership roles, and research milestones.
-                </p>
+        <section className="px-6 py-24">
+            <div className="max-w-7xl mx-auto">
+                <div className="flex justify-between items-start mb-6">
+                    <div>
+                        <h2 className="text-6xl md:text-8xl font-black mb-3">
+                            Accomplishments
+                        </h2>
+                        <p className="text-xl">Noteworthy Achievements</p>
+                    </div>
 
-                <div className="grid gap-6 md:grid-cols-2">
-                    {accomplishments.map((acc) => (
+                    <p className="hidden md:block text-xl">Get in touch</p>
+                </div>
+
+                <div className="border-t border-foreground/20">
+                    {accomplishments.map((acc, i) => (
                         <div
-                            key={`${acc.title}-${acc.period}`}
-                            className="rounded-3xl border border-foreground/10 p-6"
+                            key={i}
+                            className="grid md:grid-cols-2 gap-8 py-12 border-b border-foreground/20"
                         >
-                            <div className="mb-3 flex items-start justify-between gap-4">
-                                <div>
-                                    <h3 className="text-xl font-semibold">{acc.title}</h3>
-                                    <p className="text-sm uppercase tracking-wide text-foreground/60">
-                                        {acc.subtitle}
-                                    </p>
-                                </div>
-                                <span className="text-sm text-foreground/60">{acc.period}</span>
+                            <div>
+                                <h3 className="text-3xl font-bold mb-2">{acc.title}</h3>
+                                <p className="text-xl">{acc.subtitle}</p>
                             </div>
 
-                            <p className="leading-8 text-foreground/80">{acc.description}</p>
+                            <div>
+                                <p className="text-lg leading-9">{acc.description}</p>
+                            </div>
                         </div>
                     ))}
                 </div>
