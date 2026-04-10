@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #EFE9AE;
+    --foreground: #141418;
+
+    --card: #FEC3A6;
+    --card-foreground: #141418;
+
+    --popover: #FEC3A6;
+    --popover-foreground: #141418;
+
+    --primary: #141418;
+    --primary-foreground: #EFE9AE;
+
+    --secondary: #FFAC81;
+    --secondary-foreground: #141418;
+
+    --accent: #FF928B;
+    --accent-foreground: #141418;
+
+    --muted: #FEC3A6;
+    --muted-foreground: #5c5c52;
+
+    --destructive: #dc2626;
+    --destructive-foreground: #ffffff;
+
+    --border: #d8cf8a;
+    --input: #d8cf8a;
+    --ring: #FF928B;
+
+    --radius: 1rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  * {
+    border-color: var(--border);
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: "Inter", sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", serif;
+  }
+}
