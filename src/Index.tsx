@@ -6,19 +6,22 @@ import AccomplishmentsSection from "./AccomplishmentsSection";
 import ContactSection from "./ContactSection";
 
 const Index = () => {
-  return (
-    <main className="min-h-screen bg-background text-foreground">
-      <HeroSection />
-      <AboutSection />
-      <ExperienceSection />
-      <EducationSection />
-      <AccomplishmentsSection />
-      <ContactSection />
-      <footer className="px-6 md:px-20 py-10 text-center text-muted-foreground text-sm">
-        © 2026 John Smith. All rights reserved.
-      </footer>
-    </main>
-  );
+    return (
+        <main className="min-h-screen">
+            <HeroSection />
+            <AboutSection />
+            <ExperienceSection />
+            <EducationSection />
+            <AccomplishmentsSection />
+            <ContactSection />
+
+            <footer className="border-t border-foreground/10 px-6 py-8">
+                <div className="mx-auto max-w-6xl text-center text-sm text-foreground/70">
+                    © 2026 Isidora Popovic. All rights reserved.
+                </div>
+            </footer>
+        </main>
+    );
 };
 
 export default Index;
