@@ -1,21 +1,15 @@
-import { GraduationCap, BookOpen, Cpu, Code } from "lucide-react";
+import { GraduationCap, BookOpen } from "lucide-react";
 
 const items = [
     {
         icon: GraduationCap,
-        text: "Master’s Degree in Applied Mathematics (2024–2025)",
+        degree: "Master’s Degree in Applied Mathematics (2024–2025)",
+        title: "Convex optimisation approach to multi-asset portfolio construction",
     },
     {
         icon: BookOpen,
-        text: "Bachelor’s Degree in Electrical Engineering and Computing (2020–2024)",
-    },
-    {
-        icon: Cpu,
-        text: "Focus on statistics, mathematical modelling, and optimisation",
-    },
-    {
-        icon: Code,
-        text: "Machine learning, data science, signal analysis, and 240 ECTS",
+        degree: "Bachelor’s Degree in Electrical Engineering and Computing (2020–2024)",
+        title: "Detecting Parkinson’s Disease Using Voice Signals",
     },
 ];
 
@@ -35,10 +29,17 @@ const EducationSection = () => {
                         return (
                             <div
                                 key={i}
-                                className="flex items-center gap-5 py-8 border-b border-foreground/20"
+                                className="flex items-start gap-5 py-8 border-b border-foreground/20"
                             >
-                                <Icon className="w-8 h-8 shrink-0" />
-                                <p className="text-2xl md:text-3xl font-semibold">{item.text}</p>
+                                <Icon className="w-8 h-8 shrink-0 mt-1" />
+                                <div>
+                                    <p className="text-2xl md:text-3xl font-semibold">
+                                        {item.degree}
+                                    </p>
+                                    <p className="text-lg md:text-xl mt-2 text-foreground/80 italic">
+                                        {item.title}
+                                    </p>
+                                </div>
                             </div>
                         );
                     })}
