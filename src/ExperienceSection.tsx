@@ -5,12 +5,7 @@ const experiences = [
         description:
             "Founded a newsletter and web application connecting students with HR. Built and scaled the platform end-to-end, including the corporate database, website, and outreach pipeline. Expanded the project into career consulting, helping students understand recruitment, technical screening, and professional development.",
     },
-    {
-        title: "International Student Practice, Joint Institute for Nuclear Research",
-        subtitle: "Intern",
-        description:
-            "Developed new algorithms based on deep learning for neutron tomography in the Frank Laboratory of Neutron Physics.",
-    },
+
     {
         title: "Internship Institut Mihajlo Pupin",
         subtitle: "Intern",
