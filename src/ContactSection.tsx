@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 
 const ContactSection = () => {
     const [formData, setFormData] = useState({
@@ -9,79 +9,159 @@ const ContactSection = () => {
         message: "",
     });
 
-    const handleSubmit = (e: FormEvent) => {
+    const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState("");
+    const [isError, setIsError] = useState(false);
+
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        setFormData((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setLoading(true);
+        setStatus("");
+        setIsError(false);
 
-        const subject = `Contact from ${formData.firstName} ${formData.lastName}`;
-        const body = `Name: ${formData.firstName} ${formData.lastName}
-Email: ${formData.email}
-Phone: ${formData.phone}
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
 
-Message:
-${formData.message}`;
+            const data = await response.json();
 
-        window.location.href = `mailto:popovicisidora17@gmail.com?subject=${encodeURIComponent(
-            subject
-        )}&body=${encodeURIComponent(body)}`;
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to send message.");
+            }
+
+            setStatus("Your message has been sent.");
+            setIsError(false);
+
+            setFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                message: "",
+            });
+        } catch (error) {
+            setIsError(true);
+            setStatus(
+                error instanceof Error
+                    ? error.message
+                    : "Something went wrong. Please try again."
+            );
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <section className="px-6 py-24">
-            <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-start">
-                <div>
-                    <h2 className="text-6xl md:text-8xl font-black">Contact Me</h2>
-                </div>
+            <div className="max-w-4xl mx-auto">
+                <h2 className="text-6xl md:text-8xl font-black mb-3">Contact</h2>
+                <p className="text-xl mb-12">Get in touch</p>
 
-                <div>
-                    <h3 className="text-3xl font-bold mb-4">Get in Touch</h3>
-                    <p className="text-xl leading-8 mb-10 max-w-2xl">
-                        Feel free to reach out for collaborations, job opportunities, or to
-                        discuss potential projects.
-                    </p>
-
-                    <form onSubmit={handleSubmit} className="space-y-8">
-                        {[
-                            { label: "First name", key: "firstName", required: true, type: "text" },
-                            { label: "Last name", key: "lastName", required: true, type: "text" },
-                            { label: "Email", key: "email", required: true, type: "email" },
-                            { label: "Phone", key: "phone", required: false, type: "tel" },
-                        ].map((field) => (
-                            <div key={field.key}>
-                                <label className="block text-base mb-3">
-                                    {field.label} {field.required && "*"}
-                                </label>
-                                <input
-                                    type={field.type || "text"}
-                                    required={field.required}
-                                    value={formData[field.key as keyof typeof formData]}
-                                    onChange={(e) =>
-                                        setFormData({ ...formData, [field.key]: e.target.value })
-                                    }
-                                    className="w-full bg-transparent border border-foreground/30 rounded-full px-5 py-4 text-sm outline-none focus:border-foreground transition-colors"
-                                />
-                            </div>
-                        ))}
-
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-base mb-3">Message</label>
-                            <textarea
-                                value={formData.message}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, message: e.target.value })
-                                }
-                                rows={5}
-                                className="w-full bg-transparent border border-foreground/30 rounded-2xl px-5 py-4 text-sm outline-none focus:border-foreground transition-colors resize-none"
+                            <label className="block text-sm font-medium mb-2">
+                                First name *
+                            </label>
+                            <input
+                                type="text"
+                                name="firstName"
+                                value={formData.firstName}
+                                onChange={handleChange}
+                                required
+                                className="w-full rounded-2xl border border-foreground/20 bg-transparent px-4 py-3 outline-none focus:border-foreground"
                             />
                         </div>
 
-                        <button
-                            type="submit"
-                            className="bg-primary text-primary-foreground px-8 py-3 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+                        <div>
+                            <label className="block text-sm font-medium mb-2">
+                                Last name *
+                            </label>
+                            <input
+                                type="text"
+                                name="lastName"
+                                value={formData.lastName}
+                                onChange={handleChange}
+                                required
+                                className="w-full rounded-2xl border border-foreground/20 bg-transparent px-4 py-3 outline-none focus:border-foreground"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-sm font-medium mb-2">
+                                Email *
+                            </label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                className="w-full rounded-2xl border border-foreground/20 bg-transparent px-4 py-3 outline-none focus:border-foreground"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium mb-2">
+                                Phone
+                            </label>
+                            <input
+                                type="text"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                className="w-full rounded-2xl border border-foreground/20 bg-transparent px-4 py-3 outline-none focus:border-foreground"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium mb-2">
+                            Message *
+                        </label>
+                        <textarea
+                            name="message"
+                            value={formData.message}
+                            onChange={handleChange}
+                            required
+                            rows={6}
+                            className="w-full rounded-2xl border border-foreground/20 bg-transparent px-4 py-3 outline-none focus:border-foreground resize-none"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="rounded-2xl border border-foreground px-6 py-3 text-base font-semibold transition hover:bg-foreground hover:text-background disabled:opacity-60"
+                    >
+                        {loading ? "Sending..." : "Send Message"}
+                    </button>
+
+                    {status && (
+                        <p
+                            className={`text-sm mt-4 ${isError ? "text-red-600" : "text-green-600"
+                                }`}
                         >
-                            Send Message
-                        </button>
-                    </form>
-                </div>
+                            {status}
+                        </p>
+                    )}
+                </form>
             </div>
         </section>
     );
