@@ -3,7 +3,7 @@ import AboutSection from "./AboutSection";
 import ExperienceSection from "./ExperienceSection";
 import EducationSection from "./EducationSection";
 import AccomplishmentsSection from "./AccomplishmentsSection";
-import ContactSection from "./ContactSection";
+//import ContactSection from "./ContactSection";
 
 const Index = () => {
     return (
@@ -13,9 +13,9 @@ const Index = () => {
             <ExperienceSection />
             <EducationSection />
             <AccomplishmentsSection />
-            <ContactSection />
+            
         </>
     );
 };
-
+//</*ContactSection />/*
 export default Index;
