@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const ContactSection = () => {
     const [formData, setFormData] = useState({
         firstName: "",
@@ -29,7 +31,7 @@ const ContactSection = () => {
         setIsError(false);
 
         try {
-            const response = await fetch("/api/contact", {
+            const response = await fetch(`${API_URL}/api/contact`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -37,15 +39,14 @@ const ContactSection = () => {
                 body: JSON.stringify(formData),
             });
 
-            const data = await response.json();
+            const text = await response.text();
+            const data = text ? JSON.parse(text) : {};
 
             if (!response.ok) {
                 throw new Error(data.error || "Failed to send message.");
             }
 
             setStatus("Your message has been sent.");
-            setIsError(false);
-
             setFormData({
                 firstName: "",
                 lastName: "",
@@ -154,10 +155,7 @@ const ContactSection = () => {
                     </button>
 
                     {status && (
-                        <p
-                            className={`text-sm mt-4 ${isError ? "text-red-600" : "text-green-600"
-                                }`}
-                        >
+                        <p className={`text-sm mt-4 ${isError ? "text-red-600" : "text-green-600"}`}>
                             {status}
                         </p>
                     )}

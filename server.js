@@ -2,14 +2,18 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { Pool } = require("pg");
-const path = require("path");
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(
+    cors({
+        origin: process.env.FRONTEND_URL,
+    })
+);
+
 app.use(express.json());
 
 const pool = new Pool({
@@ -44,14 +48,14 @@ app.post("/api/contact", async (req, res) => {
             [firstName, lastName, email, phone || null, message]
         );
 
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "Message sent successfully.",
             data: result.rows[0],
         });
     } catch (error) {
         console.error("Contact form error:", error);
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             error: "Something went wrong while sending your message.",
         });
