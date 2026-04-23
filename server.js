@@ -65,3 +65,42 @@ app.post("/api/contact", async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+app.post("/api/contact", async (req, res) => {
+    try {
+        const { firstName, lastName, email, phone, message } = req.body;
+
+        console.log("Incoming contact form:", req.body);
+
+        if (!firstName || !lastName || !email || !message) {
+            return res.status(400).json({
+                success: false,
+                error: "First name, last name, email, and message are required.",
+            });
+        }
+
+        const result = await pool.query(
+            `
+            INSERT INTO contact_messages
+            (first_name, last_name, email, phone, message)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *
+            `,
+            [firstName, lastName, email, phone || null, message]
+        );
+
+        console.log("Inserted row:", result.rows[0]);
+
+        return res.status(201).json({
+            success: true,
+            message: "Message sent successfully.",
+            data: result.rows[0],
+        });
+    } catch (error) {
+        console.error("Contact form error:", error);
+        return res.status(500).json({
+            success: false,
+            error: "Something went wrong while sending your message.",
+        });
+    }
+});
