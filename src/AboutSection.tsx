@@ -1,5 +1,3 @@
-import profileImage from "./assets/profile.png";
-
 const AboutSection = () => {
     return (
         <section className="px-6 py-24">
@@ -26,7 +24,7 @@ const AboutSection = () => {
 
                     <div className="shrink-0">
                         <img
-                            src={profileImage}
+                            src="/profile.png"
                             alt="Profile"
                             className="profile-photo"
                         />
