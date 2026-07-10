@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Isidora Popovic — Data Science Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --blue:#2a46f4;
+    --blue-light:#d9e6fd;
+    --pink:#ff3fa4;
+    --yellow:#e8d400;
+    --black:#111213;
+    --white:#ffffff;
+    --radius-lg:22px;
+    --radius-sm:10px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter', sans-serif; color:var(--black); background:var(--white); overflow-x:hidden;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:700; line-height:1.05;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img{display:block; width:100%; height:100%; object-fit:cover;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 40px;}
+  .eyebrow{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--blue); font-weight:600; margin-bottom:10px; display:block;}
+
+  /* ---------- STICKY HEADER (topbar + nav travel together) ---------- */
+  .site-header{position:sticky; top:0; z-index:50; background:var(--white);}
+
+  /* ---------- TOPBAR (contact strip) ---------- */
+  .topbar{background:var(--blue-light); border-bottom:1px solid #ececec;}
+  .topbar-inner{
+    max-width:var(--maxw); margin:0 auto; padding:6px 40px;
+    display:flex; align-items:center; justify-content:center; gap:26px; flex-wrap:wrap;
+  }
+  .topbar-item{display:flex; align-items:center; gap:7px; font-size:11px; font-weight:600; color:var(--blue); white-space:nowrap;}
+  .topbar-item .dot{width:6px; height:6px;}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+    padding:12px 40px; border-bottom:1px solid #ececec;
+    background:var(--white);
+  }
+  .logo{grid-column:2; justify-self:center; display:flex; align-items:center; gap:8px; font-weight:600; letter-spacing:.5px; font-size:13px;}
+  .logo-icon{width:16px; height:16px; border-radius:50%; border:2px solid var(--black); position:relative; flex:none;}
+  .logo-icon::after{content:""; position:absolute; inset:3px; border-radius:50%; background:var(--black);}
+  .nav-links{display:flex; gap:10px; flex-wrap:wrap;}
+  .nav > .nav-links{grid-column:1; justify-self:start;}
+  .nav-right{grid-column:3; justify-self:end; display:flex; align-items:center; gap:14px;}
+  .pill{
+    border:1.5px solid var(--blue); color:var(--blue);
+    padding:6px 16px; border-radius:999px; font-size:12px; font-weight:500;
+    transition:transform .25s ease, background .25s ease, color .25s ease;
+  }
+  .pill:hover{background:var(--blue); color:var(--white); transform:translateY(-2px);}
+  .btn-dark{
+    background:var(--black); color:var(--white); padding:8px 18px;
+    border-radius:999px; font-size:12px; font-weight:500;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .btn-dark:hover{transform:translateY(-2px); opacity:.85;}
+
+  /* ---------- DECORATIVE GRID BLOCKS ---------- */
+  .deco-grid{
+    --line-pink: repeating-linear-gradient(to right, transparent 0 9px, rgba(255,63,164,.55) 9px 10px),
+                 repeating-linear-gradient(to bottom, transparent 0 9px, rgba(255,63,164,.55) 9px 10px);
+    --line-black: repeating-linear-gradient(to right, transparent 0 9px, rgba(17,18,19,.35) 9px 10px),
+                  repeating-linear-gradient(to bottom, transparent 0 9px, rgba(17,18,19,.35) 9px 10px);
+    pointer-events:none;
+  }
+  .deco-grid .cell{background-image: var(--line-pink);}
+  .deco-grid .cell.alt{background-image: var(--line-black);}
+  .deco-grid .cell.off{visibility:hidden;}
+  .hero-deco{position:absolute; top:170px; left:0; width:520px; height:320px; display:grid; z-index:0;}
+  .strip-deco{width:100%; height:70px; display:grid; grid-template-rows:1fr; margin:10px 0 40px;}
+  .strip-deco .cell{height:100%;}
+  .corner-deco{position:absolute; right:0; bottom:-30px; width:260px; height:130px; display:grid; z-index:0;}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative; padding:90px 40px 70px; overflow:hidden; min-height:88vh; display:flex; align-items:center;}
+  .hero-inner{
+    max-width:var(--maxw); margin:0 auto; width:100%;
+    display:flex; flex-direction:column; align-items:center; text-align:center; gap:36px;
+    position:relative; z-index:2;
+  }
+  .hero-title-box{
+    background:var(--blue); color:var(--white); border-radius:var(--radius-lg);
+    padding:30px 42px 36px; display:inline-block; max-width:640px;
+    animation:popIn .8s cubic-bezier(.16,1,.3,1) both .1s;
+  }
+  .hero-title-box .role{display:block; font-size:14px; font-weight:500; color:var(--blue-light); margin-bottom:8px; font-family:'Inter',sans-serif;}
+  .hero-title-box h1{font-size:clamp(36px,5.5vw,64px); letter-spacing:-1.5px;}
+  .hero-tagline{color:var(--black); font-weight:500; font-size:26px; line-height:1.6; margin:0; max-width:700px;}
+  .hero-tagline strong{color:var(--blue); font-weight:700;}
+  .hero-left{display:flex; flex-direction:column; align-items:center; gap:28px;}
+
+  /* word-by-word rise reveal */
+  .word-wrap{display:inline-block; overflow:hidden; vertical-align:top;}
+  .word-inner{display:inline-block; transform:translateY(115%); animation:wordRise .8s cubic-bezier(.16,1,.3,1) both;
+    animation-delay:calc(.35s + var(--w,0) * 90ms);}
+  @keyframes wordRise{to{transform:translateY(0);}}
+  .link-underline{position:relative; color:var(--blue); font-weight:600; font-size:14px; padding-bottom:2px;}
+  .link-underline::after{
+    content:""; position:absolute; left:0; bottom:0; width:100%; height:1.5px;
+    background:currentColor; transform:scaleX(1); transform-origin:right; transition:transform .3s ease;
+  }
+  .link-underline:hover::after{animation:underlineSweep .5s ease;}
+  @keyframes underlineSweep{
+    0%{transform:scaleX(1); transform-origin:right;}
+    50%{transform:scaleX(0); transform-origin:right;}
+    51%{transform-origin:left;}
+    100%{transform:scaleX(1); transform-origin:left;}
+  }
+
+  .hero-right{display:flex; flex-direction:row; align-items:stretch; justify-content:center; gap:20px; flex-wrap:wrap;}
+  .fact-list{border:1.5px solid var(--black); border-radius:var(--radius-sm); overflow:hidden; background:var(--white); width:340px; text-align:left;}
+  .fact-list li{display:flex; align-items:flex-start; gap:8px; padding:10px 14px; font-size:12px; border-bottom:1px solid #eaeaea;
+    opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease;}
+  .fact-list li:last-child{border-bottom:none;}
+  .fact-list.in-view li{opacity:1; transform:translateY(0);}
+  .fact-list li:nth-child(1){transition-delay:.05s;}
+  .fact-list li:nth-child(2){transition-delay:.15s;}
+  .fact-list li:nth-child(3){transition-delay:.25s;}
+  .fact-list li:nth-child(4){transition-delay:.35s;}
+  .fact-list .dot{margin-top:4px;}
+  .fact-list .label-group{display:flex; flex-direction:column; gap:2px; min-width:0;}
+  .fact-list .label{color:#888; font-weight:600; font-size:10px; text-transform:uppercase; letter-spacing:.5px;}
+  .fact-list .value{color:var(--blue); font-weight:600; word-break:break-word;}
+  .dot{width:8px; height:8px; border-radius:50%; flex:none;}
+  .dot-yellow{background:var(--yellow);}
+  .dot-pink{background:var(--pink);}
+  .dot-black{background:var(--black);}
+
+  .hero-portrait{border:1.5px solid var(--black); border-radius:var(--radius-sm); overflow:hidden; aspect-ratio:1/1;
+    width:180px; max-width:100%; align-self:center;
+    transition:transform .25s ease, box-shadow .25s ease; will-change:transform;}
+  .hero-portrait:hover{box-shadow:0 18px 30px rgba(0,0,0,.15);}
+  .placeholder{width:100%; height:100%; display:flex; align-items:center; justify-content:center; text-align:center;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:12px; color:rgba(255,255,255,.9); padding:8px;}
+  .ph-portrait{background:linear-gradient(160deg,#89f7fe,#66a6ff);}
+
+  /* ---------- generic section heading ---------- */
+  .section-head{max-width:var(--maxw); margin:0 auto; padding:0 40px;}
+  .section-head h2{color:var(--blue); font-size:clamp(28px,4vw,42px); margin-bottom:14px;}
+  .section-head p{max-width:560px; color:#555; font-size:15px; line-height:1.6;}
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--blue-light); padding:70px 40px;}
+  .about-inner{max-width:var(--maxw); margin:0 auto;}
+  .pill-outline{
+    display:inline-flex; align-items:center; gap:8px; border:1.5px solid var(--blue); color:var(--blue);
+    background:var(--white); padding:8px 18px; border-radius:999px; font-size:13px; font-weight:600; width:fit-content;
+  }
+  .about-text{
+    color:var(--blue); font-size:clamp(17px,2.25vw,26px); font-weight:500; line-height:1.45;
+    max-width:900px; margin:0 auto; text-align:center;
+    opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  }
+  .about-text.in-view{opacity:1; transform:translateY(0);}
+
+  /* ---------- SKILLS ---------- */
+  .skills{padding:80px 40px 40px;}
+  .skills-inner{max-width:var(--maxw); margin:0 auto;}
+  .skill-groups{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:36px;}
+  .skill-card{border:1.5px solid var(--black); border-radius:var(--radius-sm); padding:24px; opacity:0; transform:translateY(24px);
+    transition:opacity .6s ease, transform .6s ease;}
+  .skill-card.in-view{opacity:1; transform:translateY(0);}
+  .skill-card:nth-child(1){transition-delay:.05s;}
+  .skill-card:nth-child(2){transition-delay:.15s;}
+  .skill-card:nth-child(3){transition-delay:.25s;}
+  .skill-card h3{font-size:18px; color:var(--blue); margin-bottom:14px;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    border:1.5px solid var(--blue); color:var(--blue); font-size:12px; font-weight:600;
+    padding:6px 12px; border-radius:999px; transition:transform .2s ease, background .2s ease, color .2s ease;
+  }
+  .tag:hover{background:var(--blue); color:var(--white); transform:translateY(-2px);}
+
+  /* ---------- FOCUS AREA FLIP CARDS ---------- */
+  .focus-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:20px;}
+  .focus-card{
+    height:230px; perspective:1200px;
+    opacity:0; transform:translateY(24px) scale(.94); transition:opacity .6s ease, transform .6s ease;
+  }
+  .focus-card.in-view{opacity:1; transform:translateY(0) scale(1);}
+  .focus-card:nth-child(1){transition-delay:.05s;}
+  .focus-card:nth-child(2){transition-delay:.18s;}
+  .focus-card:nth-child(3){transition-delay:.31s;}
+
+  .flip-inner{position:relative; width:100%; height:100%; transition:transform .7s cubic-bezier(.16,1,.3,1); transform-style:preserve-3d;}
+  .focus-card:hover .flip-inner{transform:rotateY(180deg);}
+  .flip-face{
+    position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    border:1.5px solid var(--black); border-radius:var(--radius-sm);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+    padding:20px; text-align:center; background:var(--white); transition:box-shadow .25s ease;
+  }
+  .focus-card:hover .flip-front{box-shadow:0 14px 26px rgba(42,70,244,.18);}
+  .flip-back{transform:rotateY(180deg); background:var(--blue); border-color:var(--blue); color:var(--white);}
+  .back-title{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px;}
+  .back-note{font-size:12px; line-height:1.5; opacity:.85; max-width:190px;}
+
+  .focus-icon{width:56px; height:56px;}
+  .focus-icon svg{width:100%; height:100%; display:block;}
+  .focus-label{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px; color:var(--blue);}
+
+  /* healthcare: bars grow up once card is in view, heart beats continuously */
+  .icon-healthcare .bar{transform:scaleY(0); transform-box:fill-box; transform-origin:bottom; transition:transform .5s ease;}
+  .focus-card.in-view .icon-healthcare .bar{transform:scaleY(1);}
+  .icon-healthcare .bar.b1{transition-delay:.5s;}
+  .icon-healthcare .bar.b2{transition-delay:.62s;}
+  .icon-healthcare .bar.b3{transition-delay:.74s;}
+  .icon-healthcare .bar.b4{transition-delay:.86s;}
+  .icon-healthcare .heart{transform-box:fill-box; transform-origin:center; animation:heartbeat 1.6s ease-in-out infinite;}
+  @keyframes heartbeat{0%,100%{transform:scale(1);} 25%{transform:scale(1.18);} 40%{transform:scale(1);} 60%{transform:scale(1.12);}}
+
+  /* finance: coins gently bob, money bag sign pulses */
+  .icon-finance .coin{animation:coinBob 2.4s ease-in-out infinite;}
+  .icon-finance .coin-1{animation-delay:0s;}
+  .icon-finance .coin-2{animation-delay:.15s;}
+  .icon-finance .coin-3{animation-delay:.3s;}
+  @keyframes coinBob{0%,100%{transform:translateY(0);} 50%{transform:translateY(-2px);}}
+  .icon-finance .bag-dollar{animation:dollarPulse 1.8s ease-in-out infinite;}
+  @keyframes dollarPulse{0%,100%{opacity:1;} 50%{opacity:.55;}}
+
+  /* nuclear: orbits spin continuously like electrons around a nucleus */
+  .atom-spin{transform-box:view-box; transform-origin:32px 32px; animation:atomSpin 5s linear infinite;}
+  @keyframes atomSpin{to{transform:rotate(360deg);}}
+
+  /* language proficiency: radial rings instead of bars */
+  .lang-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(96px,1fr)); gap:18px; margin-top:20px; max-width:640px;}
+  .lang-card{
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    opacity:0; transform:translateY(20px) scale(.9);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .lang-card.in-view{opacity:1; transform:translateY(0) scale(1);}
+  .lang-card:nth-child(1){transition-delay:.05s;}
+  .lang-card:nth-child(2){transition-delay:.13s;}
+  .lang-card:nth-child(3){transition-delay:.21s;}
+  .lang-card:nth-child(4){transition-delay:.29s;}
+  .lang-card:nth-child(5){transition-delay:.37s;}
+  .lang-ring{position:relative; width:66px; height:66px; transition:transform .25s ease;}
+  .lang-card:hover .lang-ring{transform:scale(1.08);}
+  .lang-ring svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .ring-fill{stroke-dasharray:100; stroke-dashoffset:100; transition:stroke-dashoffset 1.2s cubic-bezier(.16,1,.3,1);}
+  .lang-card.in-view .ring-fill{stroke-dashoffset:calc(100 - var(--pct));}
+  .ring-label{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13px; color:var(--blue);
+  }
+  .lang-name{font-size:13px; font-weight:600; color:var(--black);}
+
+  /* ---------- PROJECTS (editorial list) ---------- */
+  .projects{padding:80px 40px 20px;}
+  .projects-inner{max-width:var(--maxw); margin:0 auto; position:relative;}
+  .achv-list{margin-top:36px; border-top:1.5px solid var(--black);}
+  .achv-row{
+    display:grid; grid-template-columns:56px 1fr; gap:22px; align-items:start;
+    padding:26px 6px; border-bottom:1.5px solid var(--black);
+    opacity:0; transform:translateX(-28px); transition:opacity .6s ease, transform .6s ease, background .3s ease, padding .3s ease;
+  }
+  .achv-row.in-view{opacity:1; transform:translateX(0);}
+  .achv-row:nth-child(1){transition-delay:.05s;}
+  .achv-row:nth-child(2){transition-delay:.13s;}
+  .achv-row:nth-child(3){transition-delay:.21s;}
+  .achv-row:nth-child(4){transition-delay:.29s;}
+  .achv-row:nth-child(5){transition-delay:.37s;}
+  .achv-row:hover{background:var(--blue-light); padding-left:20px; padding-right:20px; border-radius:8px;}
+  .achv-num{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:var(--blue-light); -webkit-text-stroke:1px var(--blue); line-height:1;}
+  .achv-top{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;}
+  .achv-title{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; color:var(--black);}
+  .achv-title::after{
+    content:"→"; display:inline-block; margin-left:8px; opacity:0; color:var(--blue);
+    transform:translateX(-6px); transition:opacity .25s ease, transform .25s ease;
+  }
+  .achv-row:hover .achv-title::after{opacity:1; transform:translateX(0);}
+  .achv-date{font-size:12px; font-weight:600; color:var(--blue); white-space:nowrap;}
+  .achv-desc{font-size:14px; color:#555; line-height:1.6; margin-top:6px; max-width:640px;}
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  .experience{padding:80px 40px;}
+  .experience-inner{max-width:var(--maxw); margin:0 auto;}
+  .timeline{margin-top:40px; position:relative; padding-left:28px;}
+  .timeline::before{content:""; position:absolute; left:5px; top:6px; bottom:6px; width:2px; background:var(--blue-light);}
+  .timeline-fill{position:absolute; left:5px; top:6px; width:2px; height:0%; background:var(--blue); z-index:1; transition:height .12s linear;}
+  .timeline-item{position:relative; padding-bottom:36px; opacity:0; transform:translateX(-16px);
+    transition:opacity .6s ease, transform .6s ease;}
+  .timeline-item.in-view{opacity:1; transform:translateX(0);}
+  .timeline-item:nth-child(1){transition-delay:.05s;}
+  .timeline-item:nth-child(2){transition-delay:.15s;}
+  .timeline-item:nth-child(3){transition-delay:.25s;}
+  .timeline-item::before{
+    content:""; position:absolute; left:-28px; top:4px; width:12px; height:12px; border-radius:50%;
+    background:var(--blue); border:3px solid var(--blue-light); z-index:2;
+  }
+  .timeline-date{
+    display:inline-block; font-size:11px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:1px;
+    background:var(--blue-light); padding:4px 12px; border-radius:999px; margin-bottom:8px;
+    transform:scale(.6); opacity:0; transition:transform .5s cubic-bezier(.34,1.56,.64,1), opacity .5s ease;
+    transition-delay:.25s;
+  }
+  .timeline-item.in-view .timeline-date{transform:scale(1); opacity:1;}
+  .timeline-role{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:19px; margin:4px 0 2px;}
+  .timeline-org{font-size:13px; color:#666; margin-bottom:8px;}
+  .timeline-desc{font-size:14px; color:#444; line-height:1.6; max-width:560px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--blue); color:var(--white); padding:70px 40px; text-align:center;}
+  .contact h2{font-size:clamp(28px,4.5vw,44px); margin-bottom:14px;}
+  .contact p{opacity:.85; margin-bottom:26px; font-size:15px;}
+  .contact-links{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+  .contact-links a{
+    border:1.5px solid var(--white); padding:10px 22px; border-radius:999px; font-size:14px; font-weight:500;
+    transition:transform .25s ease, background .25s ease, color .25s ease;
+  }
+  .contact-links a:hover{background:var(--white); color:var(--blue); transform:translateY(-2px);}
+
+  /* ---------- TICKER ---------- */
+  .ticker-band{background:var(--black); color:var(--white); display:flex; align-items:center; gap:26px; padding:20px 0; overflow:hidden;}
+  .pill-light{
+    display:inline-flex; align-items:center; gap:8px; flex:none; background:var(--white); color:var(--black);
+    border:1.5px solid var(--white); padding:8px 18px; border-radius:999px; font-size:13px; font-weight:600; margin-left:40px;
+  }
+  .pill-light .dot{animation:pulseDot 1.8s ease-in-out infinite;}
+  @keyframes pulseDot{0%,100%{transform:scale(1); opacity:1;} 50%{transform:scale(1.4); opacity:.6;}}
+  .ticker{overflow:hidden; flex:1; -webkit-mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);}
+  .ticker-track{display:flex; gap:24px; white-space:nowrap; width:max-content; animation:scroll 24s linear infinite;}
+  .ticker-track span{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px;}
+  @keyframes scroll{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+
+  footer.credit{text-align:center; padding:20px; font-size:12px; color:#999;}
+
+  /* ---------- placeholder gradients ---------- */
+  .ph-1{background:linear-gradient(160deg,#4b7bec,#a1c4fd);}
+  .ph-2{background:linear-gradient(160deg,#0f0c29,#302b63,#24243e);}
+  .ph-3{background:linear-gradient(160deg,#ffdde1,#ee9ca7);}
+  .ph-4{background:linear-gradient(160deg,#232526,#414345);}
+  .ph-5{background:linear-gradient(160deg,#1e3c72,#2a5298);}
+
+  /* ---------- scroll-reveal core ---------- */
+  [data-animate]{opacity:0; transform:translateY(32px); transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);}
+  [data-animate].in-view{opacity:1; transform:translateY(0);}
+  .deco-grid .cell{opacity:0; transition:opacity .5s ease; transition-delay:calc(var(--i,0) * 12ms);}
+  .deco-grid.in-view .cell{opacity:1;}
+  @keyframes popIn{from{opacity:0; transform:scale(.92) translateY(14px);} to{opacity:1; transform:scale(1) translateY(0);}}
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 900px){
+    .hero-deco{display:none;}
+    .hero-title-box{padding:32px 28px 38px;}
+    .about-inner{grid-template-columns:1fr;}
+    .skill-groups{grid-template-columns:1fr;}
+    .focus-grid{grid-template-columns:1fr;}
+    .achv-row{grid-template-columns:1fr; gap:8px;}
+    .achv-num{display:none;}
+    .nav{grid-template-columns:1fr; justify-items:center; gap:10px; text-align:center;}
+    .nav > .nav-links, .nav-right{justify-self:center;}
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span class="topbar-item"><span class="dot dot-yellow"></span>+381 69 413 0601</span>
+      <span class="topbar-item"><span class="dot dot-pink"></span>popovicisidora17@gmail.com</span>
+      <span class="topbar-item"><span class="dot dot-black"></span>Open to relocate (Europe)</span>
+      <span class="topbar-item"><span class="dot dot-yellow"></span>EN C1 · IT C1 · DE B1 · ES A2 · FR A1</span>
+    </div>
+  </div>
+
+  <header class="nav">
+    <nav class="nav-links">
+      <a class="pill" href="#about">About</a>
+      <a class="pill" href="#education">Education</a>
+      <a class="pill" href="#skills">Skills</a>
+    </nav>
+    <div class="logo"><span class="logo-icon"></span>ISIDORA POPOVIC</div>
+    <div class="nav-right">
+      <nav class="nav-links">
+        <a class="pill" href="#projects">Achievements</a>
+        <a class="pill" href="#experience">Experience</a>
+        <a class="pill" href="#research">Research</a>
+      </nav>
+      <a class="btn-dark" href="#contact">Let's Connect</a>
+    </div>
+  </header>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero" data-animate>
+  <div class="hero-deco deco-grid" id="heroDeco"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-title-box">
+        <span class="role" data-split-words>MSc Candidate — Biomedical &amp; Electrical Engineering</span>
+        <h1 data-split-words>Isidora Popovic</h1>
+      </div>
+      <p class="hero-tagline" data-split-words>Turning healthcare, finance and innovation data into clear, actionable insight — with a growing focus on how <strong>AI and data science</strong> can shape effective public policy.</p>
+      <div class="hero-portrait ph-portrait">
+        <div class="placeholder">Photo<br/>(add your headshot)</div>
+      </div>
+      <a class="link-underline" href="#projects">View My Work</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="strip-deco deco-grid" id="strip1"></div></div>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="about" data-animate>
+  <div class="about-inner">
+    <p class="about-text">MSc candidate in Biomedical Engineering and Electrical Engineering with experience applying data science, machine learning and statistical modelling to healthcare, finance and innovation projects. Skilled in Python, SQL, and data visualisation, with a strong interest in using data-driven methods for decision-making. Experienced in translating technical outputs into clear insights for non-technical stakeholders. Interested in the role of AI and data science in shaping effective public policy.</p>
+  </div>
+</section>
+
+<div class="wrap"><div class="strip-deco deco-grid" id="strip2"></div></div>
+
+<!-- ================= FOCUS AREAS ================= -->
+<section class="skills" id="focus" data-animate>
+  <div class="skills-inner">
+    <span class="eyebrow">Where My Work Lands</span>
+    <h2>Focus Areas</h2>
+    <p style="max-width:560px;color:#555;font-size:15px;line-height:1.6;">Hover a card to flip it — project highlights for each area are coming soon.</p>
+
+    <div class="focus-grid">
+      <div class="focus-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div class="focus-icon icon-healthcare">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="10" width="56" height="44" rx="6" stroke="#111213" stroke-width="3"/>
+                <line x1="4" y1="22" x2="60" y2="22" stroke="#111213" stroke-width="3"/>
+                <circle cx="11" cy="16" r="1.8" fill="#111213"/><circle cx="17" cy="16" r="1.8" fill="#111213"/><circle cx="23" cy="16" r="1.8" fill="#111213"/>
+                <rect class="bar b1" x="10" y="38" width="6" height="12" rx="1.5" fill="#2a46f4"/>
+                <rect class="bar b2" x="20" y="32" width="6" height="18" rx="1.5" fill="#2a46f4"/>
+                <rect class="bar b3" x="30" y="40" width="6" height="10" rx="1.5" fill="#2a46f4"/>
+                <rect class="bar b4" x="40" y="34" width="6" height="16" rx="1.5" fill="#2a46f4"/>
+                <path class="heart" d="M47 30c-1.5-3-6-2.2-6 .8c0 3 6 6.2 6 6.2s6-3.2 6-6.2c0-3-4.5-3.8-6-.8z" fill="#ff3fa4" stroke="#111213" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <span class="focus-label">Healthcare</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="back-title">Healthcare Projects</span>
+            <span class="back-note">[Add related project highlights here later]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="focus-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div class="focus-icon icon-finance">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="6" width="28" height="38" rx="3" stroke="#111213" stroke-width="3"/>
+                <line x1="9" y1="15" x2="27" y2="15" stroke="#111213" stroke-width="2.2"/>
+                <line x1="9" y1="21" x2="27" y2="21" stroke="#111213" stroke-width="2.2"/>
+                <line x1="9" y1="27" x2="21" y2="27" stroke="#111213" stroke-width="2.2"/>
+                <ellipse class="coin coin-3" cx="16" cy="44" rx="11" ry="3.5" fill="#e8d400" stroke="#111213" stroke-width="2"/>
+                <ellipse class="coin coin-2" cx="16" cy="49" rx="11" ry="3.5" fill="#e8d400" stroke="#111213" stroke-width="2"/>
+                <ellipse class="coin coin-1" cx="16" cy="54" rx="11" ry="3.5" fill="#e8d400" stroke="#111213" stroke-width="2"/>
+                <circle class="bag" cx="46" cy="40" r="14" fill="#2a46f4" stroke="#111213" stroke-width="3"/>
+                <path d="M40 26c0-4 3-6 6-6s6 2 6 6" stroke="#111213" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <text class="bag-dollar" x="46" y="46" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Space Grotesk, sans-serif">$</text>
+              </svg>
+            </div>
+            <span class="focus-label">Finance</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="back-title">Finance Projects</span>
+            <span class="back-note">[Add related project highlights here later]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="focus-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div class="focus-icon icon-nuclear">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g class="atom-spin">
+                  <circle cx="32" cy="32" r="5" fill="#111213"/>
+                  <g>
+                    <ellipse cx="32" cy="32" rx="26" ry="10" fill="none" stroke="#2a46f4" stroke-width="3"/>
+                    <circle cx="58" cy="32" r="3" fill="#ff3fa4"/>
+                  </g>
+                  <g transform="rotate(60 32 32)">
+                    <ellipse cx="32" cy="32" rx="26" ry="10" fill="none" stroke="#2a46f4" stroke-width="3"/>
+                    <circle cx="58" cy="32" r="3" fill="#ff3fa4"/>
+                  </g>
+                  <g transform="rotate(120 32 32)">
+                    <ellipse cx="32" cy="32" rx="26" ry="10" fill="none" stroke="#2a46f4" stroke-width="3"/>
+                    <circle cx="58" cy="32" r="3" fill="#ff3fa4"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="focus-label">Nuclear / Research</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="back-title">Research Projects</span>
+            <span class="back-note">[Add related project highlights here later]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="strip-deco deco-grid" id="stripFocus"></div></div>
+
+<!-- ================= EDUCATION ================= -->
+<section class="experience" id="education" data-animate>
+  <div class="experience-inner">
+    <span class="eyebrow">Academic Background</span>
+    <h2>Education</h2>
+    <div class="timeline">
+      <div class="timeline-fill"></div>
+      <div class="timeline-item">
+        <div class="timeline-date">2025 — 2027</div>
+        <div class="timeline-role">MSc Biomedical Engineering</div>
+        <div class="timeline-org">Vrije Universiteit Brussel &amp; Ghent University</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2024 — 2026</div>
+        <div class="timeline-role">MSc Electrical Engineering &amp; Computing — Applied Mathematics</div>
+        <div class="timeline-org">University of Belgrade, School of Electrical Engineering</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2020 — 2024</div>
+        <div class="timeline-role">BSc Electrical Engineering &amp; Computing</div>
+        <div class="timeline-org">University of Belgrade, School of Electrical Engineering</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="strip-deco deco-grid" id="stripEdu"></div></div>
+
+<!-- ================= SKILLS ================= -->
+<section class="skills" id="skills" data-animate>
+  <div class="skills-inner">
+    <span class="eyebrow">What I Bring</span>
+    <h2>Skills &amp; Expertise</h2>
+    <p style="max-width:560px;color:#555;font-size:15px;line-height:1.6;">A data science toolkit built across healthcare, finance and innovation work — paired with the communication skills to make it useful to non-technical stakeholders.</p>
+
+    <div class="skill-groups">
+      <div class="skill-card">
+        <h3>Technical</h3>
+        <div class="tag-row">
+          <span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Power BI</span><span class="tag">Git</span><span class="tag">Statistical Modelling</span><span class="tag">ML Development</span><span class="tag">Data Visualisation</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Business</h3>
+        <div class="tag-row">
+          <span class="tag">Problem-Solving</span><span class="tag">Stakeholder Communication</span><span class="tag">Innovation</span><span class="tag">Collaboration</span><span class="tag">Pitching</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Domains</h3>
+        <div class="tag-row">
+          <span class="tag">Healthcare</span><span class="tag">Finance</span><span class="tag">Public Policy</span><span class="tag">Innovation</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="eyebrow" style="margin-top:46px;">Language Proficiency</p>
+    <div class="lang-grid">
+      <div class="lang-card">
+        <div class="lang-ring">
+          <svg viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="26" fill="none" stroke="#e5e5e5" stroke-width="5" pathLength="100"/>
+            <circle class="ring-fill" cx="30" cy="30" r="26" fill="none" stroke="var(--blue)" stroke-width="5" stroke-linecap="round" pathLength="100" style="--pct:90"/>
+          </svg>
+          <span class="ring-label">C1</span>
+        </div>
+        <span class="lang-name">English</span>
+      </div>
+      <div class="lang-card">
+        <div class="lang-ring">
+          <svg viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="26" fill="none" stroke="#e5e5e5" stroke-width="5" pathLength="100"/>
+            <circle class="ring-fill" cx="30" cy="30" r="26" fill="none" stroke="var(--blue)" stroke-width="5" stroke-linecap="round" pathLength="100" style="--pct:90"/>
+          </svg>
+          <span class="ring-label">C1</span>
+        </div>
+        <span class="lang-name">Italian</span>
+      </div>
+      <div class="lang-card">
+        <div class="lang-ring">
+          <svg viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="26" fill="none" stroke="#e5e5e5" stroke-width="5" pathLength="100"/>
+            <circle class="ring-fill" cx="30" cy="30" r="26" fill="none" stroke="var(--blue)" stroke-width="5" stroke-linecap="round" pathLength="100" style="--pct:60"/>
+          </svg>
+          <span class="ring-label">B1</span>
+        </div>
+        <span class="lang-name">German</span>
+      </div>
+      <div class="lang-card">
+        <div class="lang-ring">
+          <svg viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="26" fill="none" stroke="#e5e5e5" stroke-width="5" pathLength="100"/>
+            <circle class="ring-fill" cx="30" cy="30" r="26" fill="none" stroke="var(--blue)" stroke-width="5" stroke-linecap="round" pathLength="100" style="--pct:40"/>
+          </svg>
+          <span class="ring-label">A2</span>
+        </div>
+        <span class="lang-name">Spanish</span>
+      </div>
+      <div class="lang-card">
+        <div class="lang-ring">
+          <svg viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="26" fill="none" stroke="#e5e5e5" stroke-width="5" pathLength="100"/>
+            <circle class="ring-fill" cx="30" cy="30" r="26" fill="none" stroke="var(--blue)" stroke-width="5" stroke-linecap="round" pathLength="100" style="--pct:25"/>
+          </svg>
+          <span class="ring-label">A1</span>
+        </div>
+        <span class="lang-name">French</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section class="projects" id="projects" data-animate>
+  <div class="projects-inner">
+    <span class="eyebrow">Selected Work</span>
+    <h2>Achievements &amp; Projects</h2>
+    <div class="achv-list">
+      <div class="achv-row">
+        <span class="achv-num">01</span>
+        <div class="achv-body">
+          <div class="achv-top"><span class="achv-title">McKinsey Forward Program</span><span class="achv-date">2026</span></div>
+          <p class="achv-desc">10-week structured problem-solving and data-driven decision-making programme</p>
+        </div>
+      </div>
+      <div class="achv-row">
+        <span class="achv-num">02</span>
+        <div class="achv-body">
+          <div class="achv-top"><span class="achv-title">PATHflow</span><span class="achv-date">2024–2025</span></div>
+          <p class="achv-desc">Student career &amp; recruitment pipeline — user research, product design, business model, go-to-market strategy</p>
+        </div>
+      </div>
+      <div class="achv-row">
+        <span class="achv-num">03</span>
+        <div class="achv-body">
+          <div class="achv-top"><span class="achv-title">Top Female Founders, EIT Summer School</span><span class="achv-date">2024</span></div>
+          <p class="achv-desc">Competitive healthcare innovation programme — team building, business modelling, pitching</p>
+        </div>
+      </div>
+      <div class="achv-row">
+        <span class="achv-num">04</span>
+        <div class="achv-body">
+          <div class="achv-top"><span class="achv-title">Huawei Developer Competition Europe</span><span class="achv-date">2023</span></div>
+          <p class="achv-desc">Honourable Award — top 7 of 120+ teams; disease-risk prediction web app on Huawei Cloud</p>
+        </div>
+      </div>
+      <div class="achv-row">
+        <span class="achv-num">05</span>
+        <div class="achv-body">
+          <div class="achv-top"><span class="achv-title">EESTEC Ambassador</span><span class="achv-date">2022–2024</span></div>
+          <p class="achv-desc">Represented the association to corporate partners and led partnership strategy across teams</p>
+        </div>
+      </div>
+    </div>
+    <div class="corner-deco deco-grid" id="cornerDeco"></div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section class="experience" id="experience" data-animate>
+  <div class="experience-inner">
+    <span class="eyebrow">Where I've Been</span>
+    <h2>Experience</h2>
+    <div class="timeline">
+      <div class="timeline-fill"></div>
+      <div class="timeline-item">
+        <div class="timeline-date">2025 — Present</div>
+        <div class="timeline-role">Intern</div>
+        <div class="timeline-org">Institut Mihajlo Pupin</div>
+        <div class="timeline-desc">Analysed ML model outputs and developed interactive dashboards to support model evaluation, performance monitoring and stakeholder interpretation.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">June — Nov 2024</div>
+        <div class="timeline-role">Data Analyst &amp; HR Analyst</div>
+        <div class="timeline-org">Lukowa Group</div>
+        <div class="timeline-desc">Supported the development of portfolio risk-minimisation models and prediction pipelines for a newly established quantitative analytics team. Applied data analysis and statistical modelling to support financial risk assessment and data-driven decision making. Experimented with AI-assisted evaluation tools to structure technical screening for ML and quantitative roles.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Sep 2023 — Apr 2024</div>
+        <div class="timeline-role">IT &amp; Innovation Intern</div>
+        <div class="timeline-org">AstraZeneca</div>
+        <div class="timeline-desc">Supported the development of an ML-based disease-risk prediction tool, contributing to data-driven healthcare innovation workstreams. Collaborated with cross-functional teams to translate technical model outputs into practical healthcare use cases. Co-organised Health Hacks, a student hackathon focused on healthcare and digital innovation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="strip-deco deco-grid" id="stripRes"></div></div>
+
+<!-- ================= RESEARCH ================= -->
+<section class="experience" id="research" data-animate>
+  <div class="experience-inner">
+    <span class="eyebrow">Publications</span>
+    <h2>Research</h2>
+    <div class="timeline">
+      <div class="timeline-fill"></div>
+      <div class="timeline-item">
+        <div class="timeline-date">YUINFO · 2025</div>
+        <div class="timeline-role">Spatial Orientations in Radiological Reports</div>
+        <div class="timeline-org">Co-authored paper</div>
+        <div class="timeline-desc">Co-authored NLP research on spatial meaning in clinical radiology reports.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">SASA · 2026</div>
+        <div class="timeline-role">A Large Language Model Approach to Moral Dilemmas</div>
+        <div class="timeline-org">Serbian Academy of Sciences and Arts</div>
+        <div class="timeline-desc">AI research paper on LLM-based reasoning in moral dilemma scenarios.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">ICUR, University of Warwick · 2025</div>
+        <div class="timeline-role">Detecting Parkinson's Disease Using Voice Signals</div>
+        <div class="timeline-org">Bachelor's thesis</div>
+        <div class="timeline-desc">Applied machine learning and voice-signal analysis to Parkinson's disease detection.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact" data-animate>
+  <h2>Let's Work Together</h2>
+  <p>Open to data science, analytics and innovation opportunities across Europe — reach out any time.</p>
+  <div class="contact-links">
+    <a href="mailto:popovicisidora17@gmail.com">Email</a>
+    <a href="tel:+381694130601">Phone</a>
+    <a href="https://www.linkedin.com/in/isidora-popovic" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/isidorapopovic" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</section>
+
+<footer class="ticker-band">
+  <span class="pill-light"><span class="dot dot-yellow"></span>Core Toolkit</span>
+  <div class="ticker">
+    <div class="ticker-track" id="tickerTrack">
+      <span>Python</span><span>*</span>
+      <span>SQL</span><span>*</span>
+      <span>Power BI</span><span>*</span>
+      <span>Git</span><span>*</span>
+      <span>Machine Learning</span><span>*</span>
+      <span>Statistical Modelling</span><span>*</span>
+    </div>
+  </div>
+</footer>
+
+<footer class="credit">Add a headshot and project visuals to personalise further — everything else here is your real background.</footer>
+
+<script>
+  // Word-by-word rise reveal: wraps each word in overflow-hidden spans so it
+  // slides up into place on load, preserving any nested tags (e.g. <strong>).
+  function splitWords(el){
+    let i = 0;
+    function process(node){
+      if(node.nodeType === Node.TEXT_NODE){
+        const parts = node.textContent.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        parts.forEach(part=>{
+          if(part.trim() === ''){
+            frag.appendChild(document.createTextNode(part));
+          } else {
+            const outer = document.createElement('span');
+            outer.className = 'word-wrap';
+            const inner = document.createElement('span');
+            inner.className = 'word-inner';
+            inner.style.setProperty('--w', i++);
+            inner.textContent = part;
+            outer.appendChild(inner);
+            frag.appendChild(outer);
+          }
+        });
+        node.parentNode.replaceChild(frag, node);
+      } else if(node.nodeType === Node.ELEMENT_NODE){
+        Array.from(node.childNodes).forEach(process);
+      }
+    }
+    Array.from(el.childNodes).forEach(process);
+  }
+  document.querySelectorAll('[data-split-words]').forEach(splitWords);
+
+  function buildGrid(el, cols, rows, offPattern){
+    el.style.gridTemplateColumns = `repeat(${cols},1fr)`;
+    el.style.gridTemplateRows = `repeat(${rows},1fr)`;
+    let i = 0;
+    for(let r=0; r<rows; r++){
+      for(let c=0; c<cols; c++){
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.style.setProperty('--i', i++);
+        if((r+c) % 3 === 0) cell.classList.add('alt');
+        if(offPattern(r,c,rows,cols)) cell.classList.add('off');
+        el.appendChild(cell);
+      }
+    }
+  }
+
+  buildGrid(document.getElementById('heroDeco'), 8, 6, (r,c)=>{
+    if(r<2) return c>5;
+    if(r<4) return c>3;
+    return c>1;
+  });
+  buildGrid(document.getElementById('strip1'), 24, 1, ()=>false);
+  buildGrid(document.getElementById('strip2'), 24, 1, ()=>false);
+  buildGrid(document.getElementById('stripFocus'), 24, 1, ()=>false);
+  buildGrid(document.getElementById('stripEdu'), 24, 1, ()=>false);
+  buildGrid(document.getElementById('stripRes'), 24, 1, ()=>false);
+  buildGrid(document.getElementById('cornerDeco'), 10, 5, (r,c)=> r > c);
+
+  // seamless ticker loop
+  const track = document.getElementById('tickerTrack');
+  track.innerHTML += track.innerHTML;
+
+  // scroll-reveal for sections + staggered groups + decorative grids + skill bars
+  const revealTargets = document.querySelectorAll(
+    '[data-animate], .fact-list, .deco-grid, .skill-card, .achv-row, .timeline-item, .lang-card, .about-text, .focus-card'
+  );
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealTargets.forEach(el => io.observe(el));
+
+  // scroll-linked timeline progress: the blue line fills in as each
+  // timeline (Education, Experience, Research) scrolls through view
+  const timelines = document.querySelectorAll('.timeline');
+  function updateTimelineFills(){
+    timelines.forEach(tl=>{
+      const fill = tl.querySelector('.timeline-fill');
+      if(!fill) return;
+      const rect = tl.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const start = vh * 0.85;
+      const total = rect.height + vh * 0.3;
+      let p = (start - rect.top) / total;
+      p = Math.max(0, Math.min(1, p));
+      fill.style.height = (p * 100) + '%';
+    });
+  }
+  window.addEventListener('scroll', updateTimelineFills, { passive:true });
+  window.addEventListener('resize', updateTimelineFills);
+  updateTimelineFills();
+
+  // subtle 3D tilt on the portrait
+  const portrait = document.querySelector('.hero-portrait');
+  if(portrait){
+    portrait.addEventListener('mousemove', (e)=>{
+      const r = portrait.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      portrait.style.transform = `perspective(600px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.02)`;
+    });
+    portrait.addEventListener('mouseleave', ()=>{
+      portrait.style.transform = 'perspective(600px) rotateY(0) rotateX(0) scale(1)';
+    });
+  }
+</script>
+
+</body>
+</html>
