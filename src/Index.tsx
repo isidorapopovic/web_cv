@@ -1,5 +1,6 @@
 import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
+import FocusAreasSection from "./FocusAreasSection";
 import ExperienceSection from "./ExperienceSection";
 import EducationSection from "./EducationSection";
 import AccomplishmentsSection from "./AccomplishmentsSection";
@@ -10,10 +11,11 @@ const Index = () => {
         <>
             <HeroSection />
             <AboutSection />
+            <FocusAreasSection />
             <ExperienceSection />
             <EducationSection />
             <AccomplishmentsSection />
-            
+
         </>
     );
 };
